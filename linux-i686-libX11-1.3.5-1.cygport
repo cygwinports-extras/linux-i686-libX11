@@ -1,0 +1,14 @@
+CROSS_HOST="i686-pc-linux-gnu"
+ORIG_PN="libX11"
+inherit cross xorg
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	cd ${B}
+	cygconf --disable-specs
+	# makekeys is a build-native executable (run during build), but X11_CFLAGS
+	# contains an -I$sysroot/usr/include flag which picks up glibc's headers
+	# instead of Cygwin's
+	cygmake makekeys_CFLAGS=
+}
