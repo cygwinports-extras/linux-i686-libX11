@@ -1,0 +1,23 @@
+CROSS_HOST="i686-pc-linux-gnu"
+ORIG_PN="libX11"
+inherit xorg cross
+
+NAME="linux-i686-libX11"
+VERSION=1.5.0
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="X11 core protocol library for Linux i686 toolchain"
+DESCRIPTION="This package does NOT contain cygwin binaries.
+Instead, it contains Linux ELF binaries.  It is for use with the
+linux-i686-gcc cross compiler, and installs into the
+/usr/i686-pc-linux-gnu/sys-root/usr/{lib,include} directories."
+
+CYGCONF_ARGS="--disable-specs --without-launchd"
+
+src_install() {
+	cd ${B}
+	cyginstall libman_DATA= fileman_DATA= dist_X11_DATA= x11data_DATA= \
+		x11locale_DATA= nobase_x11locale_DATA= nobase_dist_x11locale_DATA=
+}
+
+KEEP_LA_FILES="none"
